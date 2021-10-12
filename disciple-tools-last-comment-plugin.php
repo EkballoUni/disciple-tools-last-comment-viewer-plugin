@@ -102,88 +102,10 @@ class Disciple_Tools_Last_Comment_Plugin {
     }
 
     private function __construct() {
-        $is_rest = dt_is_rest();
-        /**
-         * @todo Decide if you want to use the REST API example
-         * To remove: delete this following line and remove the folder named /rest-api
-         */
-        if ( $is_rest && strpos( dt_get_url_path(), 'disciple_tools_plugin_starter_template_template' ) !== false ) {
-            require_once( 'rest-api/rest-api.php' ); // adds starter rest api class
-        }
-
-        /**
-         * @todo Decide if you want to create a new post type
-         * To remove: delete the line below and remove the folder named /post-type
-         */
-        require_once( 'post-type/loader.php' ); // add starter post type extension to Disciple.Tools system
-
-        /**
-         * @todo Decide if you want to create a custom site-to-site link
-         * To remove: delete the line below and remove the folder named /site-link
-         */
-        require_once( 'site-link/custom-site-to-site-links.php' ); // add site to site link class and capabilities
-
-        /**
-         * @todo Decide if you want to add new charts to the metrics section
-         * To remove: delete the line below and remove the folder named /charts
-         */
-        if ( strpos( dt_get_url_path(), 'metrics' ) !== false || ( $is_rest && strpos( dt_get_url_path(), 'disciple-tools-last-comment-plugin' ) !== false ) ){
-            require_once( 'charts/charts-loader.php' );  // add custom charts to the metrics area
-        }
-
-        /**
-         * @todo Decide if you want to add a custom tile or settings page tile
-         * To remove: delete the lines below and remove the folder named /tile
-         */
         require_once( 'tile/custom-tile.php' ); // add custom tile
-        if ( 'settings' === dt_get_url_path() && ! $is_rest ) {
-            require_once( 'tile/settings-tile.php' ); // add custom settings page tile
-        }
 
-        /**
-         * @todo Decide if you want to create a magic link
-         * To remove: delete the line below and remove the folder named /magic-link
-         */
-        require_once( 'magic-link/magic-link-post-type.php' );
-        require_once( 'magic-link/magic-link-user-app.php' );
-
-        /**
-         * @todo Decide if you want to add a custom admin page in the admin area
-         * To remove: delete the 3 lines below and remove the folder named /admin
-         */
-        if ( is_admin() ) {
-            require_once( 'admin/admin-menu-and-tabs.php' ); // adds starter admin page and section for plugin
-        }
-
-        /**
-         * @todo Decide if you want to support localization of your plugin
-         * To remove: delete the line below and remove the folder named /languages
-         */
         $this->i18n();
 
-        /**
-         * @todo Decide if you want to customize links for your plugin in the plugin admin area
-         * To remove: delete the lines below and remove the function named
-         */
-        if ( is_admin() ) { // adds links to the plugin description area in the plugin admin list.
-            add_filter( 'plugin_row_meta', [ $this, 'plugin_description_links' ], 10, 4 );
-        }
-
-    }
-
-    /**
-     * Filters the array of row meta for each/specific plugin in the Plugins list table.
-     * Appends additional links below each/specific plugin on the plugins page.
-     */
-    public function plugin_description_links( $links_array, $plugin_file_name, $plugin_data, $status ) {
-        if ( strpos( $plugin_file_name, basename( __FILE__ ) ) ) {
-            // You can still use `array_unshift()` to add links at the beginning.
-
-            $links_array[] = '<a href="https://disciple.tools">Disciple.Tools Community</a>'; // @todo replace with your links.
-            // @todo add other links here
-        }
-
-        return $links_array;
     }
 
     /**
@@ -195,27 +117,6 @@ class Disciple_Tools_Last_Comment_Plugin {
      */
     public static function activation() {
         // add elements here that need to fire on activation
-        /*
-        $post_types = get_post_types(['Groups', 'Contacts']);
-        $contact_field_key = dt_create_field_key( 'last_comment' );
-        $group_field_key = dt_create_field_key( 'last_comment' );
-        $contact_fields = DT_Posts::get_post_field_settings( 'contact', false, true );
-        $group_fields = DT_Posts::get_post_field_settings( 'group', false, true );
-
-        $last_comment_field = [
-            'name' => 'last_comment',
-            'type' => 'text',
-            'default' => '',
-            'tile' => '',
-            'customizable' => 'all',
-            'private' => false
-        ];
-        $contact_last_comment_options['contact'][$contact_field_key] = $last_comment_field;
-        $group_last_comment_options['contact'][$group_field_key] = $last_comment_field;
-
-        update_option( "dt_field_customizations", $contact_last_comment_options );
-        update_option( "dt_field_customizations", $group_last_comment_options );
-        */
     }
 
     /**
@@ -227,19 +128,6 @@ class Disciple_Tools_Last_Comment_Plugin {
      */
     public static function deactivation() {
         // add functions here that need to happen on deactivation
-        /*
-        $field_customizations = dt_get_option( "dt_field_customizations" );
-        $post_types = ['contact', 'group'];
-
-        foreach($post_types as $post_type) {
-            if ( isset( $field_customizations[$post_type]['last_comment'] ) ){
-                unset( $field_customizations[$post_type]['last_comment'] );
-            }
-            update_option( "dt_field_customizations", $field_customizations );
-            wp_cache_delete( $post_type . "_field_settings" );
-        }
-        */
-
         delete_option( 'dismissed-disciple-tools-last-comment-plugin' );
     }
 
