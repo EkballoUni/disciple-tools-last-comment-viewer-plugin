@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
  */
 
 class Disciple_Tools_Plugin_Starter_Template_Site_Links {
-    public $type = 'disciple_tools_plugin_starter_template';
+    public $type = 'disciple_tools_last_comment_plugin';
 
     private static $_instance = null;
     public static function instance() {

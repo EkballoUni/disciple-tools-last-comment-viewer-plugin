@@ -55,7 +55,6 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
         //list
         add_filter( "dt_user_list_filters", [ $this, "dt_user_list_filters" ], 10, 2 );
         add_filter( "dt_filter_access_permissions", [ $this, "dt_filter_access_permissions" ], 20, 2 );
-
     }
 
     public function after_setup_theme(){
@@ -480,7 +479,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
 
             $filters["tabs"][] = [
                 "key" => "assigned_to_me",
-                "label" => _x( "Assigned to me", 'List Filters', 'disciple-tools-plugin-starter-template' ),
+                "label" => _x( "Assigned to me yo", 'List Filters', 'disciple-tools-plugin-starter-template' ),
                 "count" => $total_my,
                 "order" => 20
             ];
@@ -586,21 +585,23 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
                                     'subfilter' => true
                                 ];
                             }
-//                        foreach ( $fields["type"]["default"] as $type_key => $type_value ) {
-//                            if ( isset( $active_counts[$type_key] ) ) {
-//                                $filters["filters"][] = [
-//                                    "ID" => 'all_' . $type_key,
-//                                    "tab" => 'all',
-//                                    "name" => $type_value["label"],
-//                                    "query" => [
-//                                        'status' => [ 'active' ],
-//                                        'sort' => 'name'
-//                                    ],
-//                                    "count" => $active_counts[$type_key],
-//                                    'subfilter' => true
-//                                ];
-//                            }
-//                        }
+                            /*
+                                foreach ( $fields["type"]["default"] as $type_key => $type_value ) {
+                                    if ( isset( $active_counts[$type_key] ) ) {
+                                        $filters["filters"][] = [
+                                            "ID" => 'all_' . $type_key,
+                                            "tab" => 'all',
+                                            "name" => $type_value["label"],
+                                            "query" => [
+                                                'status' => [ 'active' ],
+                                                'sort' => 'name'
+                                            ],
+                                            "count" => $active_counts[$type_key],
+                                            'subfilter' => true
+                                        ];
+                                    }
+                                }
+                            */
                         }
                     }
                 }

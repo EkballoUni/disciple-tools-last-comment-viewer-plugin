@@ -19,7 +19,7 @@ class Disciple_Tools_Plugin_Starter_Template_Endpoints
      */
     //See https://github.com/DiscipleTools/disciple-tools-theme/wiki/Site-to-Site-Link for outside of wordpress authentication
     public function add_api_routes() {
-        $namespace = 'disciple_tools_plugin_starter_template/v1';
+        $namespace = 'disciple_tools_last_comment_plugin/v1';
 
         register_rest_route(
             $namespace, '/endpoint', [

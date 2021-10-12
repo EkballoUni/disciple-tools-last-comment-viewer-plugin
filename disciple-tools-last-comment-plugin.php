@@ -1,13 +1,13 @@
 <?php
 /**
- *Plugin Name: Disciple.Tools - Plugin Starter Template
- * Plugin URI: https://github.com/DiscipleTools/disciple-tools-plugin-starter-template
+ *Plugin Name: Disciple.Tools - Last Comment
+ * Plugin URI: https://github.com/DiscipleTools/disciple-tools-last-comment-plugin
  * Description: Disciple.Tools - Plugin Starter Template is intended to help developers and integrator jumpstart their extension of the Disciple.Tools system.
- * Text Domain: disciple-tools-plugin-starter-template
+ * Text Domain: disciple-tools-last-comment-plugin
  * Domain Path: /languages
  * Version:  0.1
  * Author URI: https://github.com/DiscipleTools
- * GitHub Plugin URI: https://github.com/DiscipleTools/disciple-tools-plugin-starter-template
+ * GitHub Plugin URI: https://github.com/DiscipleTools/disciple-tools-last-comment-plugin
  * Requires at least: 4.7.0
  * (Requires 4.7+ because of the integration of the REST API at 4.7 and the security requirements of this milestone version.)
  * Tested up to: 5.6
@@ -37,8 +37,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @access public
  * @return object|bool
  */
-function disciple_tools_plugin_starter_template() {
-    $disciple_tools_plugin_starter_template_required_dt_theme_version = '1.0';
+function disciple_tools_last_comment_plugin() {
+    $disciple_tools_last_comment_plugin = '1.0';
     $wp_theme = wp_get_theme();
     $version = $wp_theme->version;
 
@@ -46,7 +46,7 @@ function disciple_tools_plugin_starter_template() {
      * Check if the Disciple.Tools theme is loaded and is the latest required version
      */
     $is_theme_dt = strpos( $wp_theme->get_template(), "disciple-tools-theme" ) !== false || $wp_theme->name === "Disciple Tools";
-    if ( $is_theme_dt && version_compare( $version, $disciple_tools_plugin_starter_template_required_dt_theme_version, "<" ) ) {
+    if ( $is_theme_dt && version_compare( $version, $disciple_tools_last_comment_plugin, "<" ) ) {
         add_action( 'admin_notices', 'disciple_tools_plugin_starter_template_hook_admin_notice' );
         add_action( 'wp_ajax_dismissed_notice_handler', 'dt_hook_ajax_notice_handler' );
         return false;
@@ -61,10 +61,29 @@ function disciple_tools_plugin_starter_template() {
         require_once get_template_directory() . '/dt-core/global-functions.php';
     }
 
-    return Disciple_Tools_Plugin_Starter_Template::instance();
+    return Disciple_Tools_Last_Comment_Plugin::instance();
 
 }
-add_action( 'after_setup_theme', 'disciple_tools_plugin_starter_template', 20 );
+add_action( 'after_setup_theme', 'disciple_tools_last_comment_plugin', 20 );
+
+function last_comment_field_filter($data, $post_type) {
+    foreach($data["posts"] as &$post) {
+        $args = array(
+            'post_id' => $post->ID,
+            'orderby' => array('comment_date'),
+            'order' => 'DESC',
+            'number' => 1
+        );
+        $comment = get_comments( $args );
+
+        $post['last_comment'] = $comment[0]->comment_content;
+    }
+    unset($post);
+
+    return $data;
+}
+add_filter( "dt_list_posts_custom_fields", "last_comment_field_filter", 10, 2);
+
 
 /**
  * Singleton class for setting up the plugin.
@@ -72,7 +91,7 @@ add_action( 'after_setup_theme', 'disciple_tools_plugin_starter_template', 20 );
  * @since  0.1
  * @access public
  */
-class Disciple_Tools_Plugin_Starter_Template {
+class Disciple_Tools_Last_Comment_Plugin {
 
     private static $_instance = null;
     public static function instance() {
@@ -108,7 +127,7 @@ class Disciple_Tools_Plugin_Starter_Template {
          * @todo Decide if you want to add new charts to the metrics section
          * To remove: delete the line below and remove the folder named /charts
          */
-        if ( strpos( dt_get_url_path(), 'metrics' ) !== false || ( $is_rest && strpos( dt_get_url_path(), 'disciple-tools-plugin-starter-template-metrics' ) !== false ) ){
+        if ( strpos( dt_get_url_path(), 'metrics' ) !== false || ( $is_rest && strpos( dt_get_url_path(), 'disciple-tools-last-comment-plugin' ) !== false ) ){
             require_once( 'charts/charts-loader.php' );  // add custom charts to the metrics area
         }
 
@@ -176,6 +195,27 @@ class Disciple_Tools_Plugin_Starter_Template {
      */
     public static function activation() {
         // add elements here that need to fire on activation
+        /*
+        $post_types = get_post_types(['Groups', 'Contacts']);
+        $contact_field_key = dt_create_field_key( 'last_comment' );
+        $group_field_key = dt_create_field_key( 'last_comment' );
+        $contact_fields = DT_Posts::get_post_field_settings( 'contact', false, true );
+        $group_fields = DT_Posts::get_post_field_settings( 'group', false, true );
+
+        $last_comment_field = [
+            'name' => 'last_comment',
+            'type' => 'text',
+            'default' => '',
+            'tile' => '',
+            'customizable' => 'all',
+            'private' => false
+        ];
+        $contact_last_comment_options['contact'][$contact_field_key] = $last_comment_field;
+        $group_last_comment_options['contact'][$group_field_key] = $last_comment_field;
+
+        update_option( "dt_field_customizations", $contact_last_comment_options );
+        update_option( "dt_field_customizations", $group_last_comment_options );
+        */
     }
 
     /**
@@ -187,7 +227,20 @@ class Disciple_Tools_Plugin_Starter_Template {
      */
     public static function deactivation() {
         // add functions here that need to happen on deactivation
-        delete_option( 'dismissed-disciple-tools-plugin-starter-template' );
+        /*
+        $field_customizations = dt_get_option( "dt_field_customizations" );
+        $post_types = ['contact', 'group'];
+
+        foreach($post_types as $post_type) {
+            if ( isset( $field_customizations[$post_type]['last_comment'] ) ){
+                unset( $field_customizations[$post_type]['last_comment'] );
+            }
+            update_option( "dt_field_customizations", $field_customizations );
+            wp_cache_delete( $post_type . "_field_settings" );
+        }
+        */
+
+        delete_option( 'dismissed-disciple-tools-last-comment-plugin' );
     }
 
     /**
@@ -198,7 +251,7 @@ class Disciple_Tools_Plugin_Starter_Template {
      * @return void
      */
     public function i18n() {
-        $domain = 'disciple-tools-plugin-starter-template';
+        $domain = 'disciple-tools-last-comment-plugin';
         load_plugin_textdomain( $domain, false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
     }
 
@@ -210,7 +263,7 @@ class Disciple_Tools_Plugin_Starter_Template {
      * @return string
      */
     public function __toString() {
-        return 'disciple-tools-plugin-starter-template';
+        return 'disciple-tools-last-comment-plugin';
     }
 
     /**
@@ -245,7 +298,7 @@ class Disciple_Tools_Plugin_Starter_Template {
      * @access public
      */
     public function __call( $method = '', $args = array() ) {
-        _doing_it_wrong( "disciple_tools_plugin_starter_template::" . esc_html( $method ), 'Method does not exist.', '0.1' );
+        _doing_it_wrong( "disciple_tools_last_comment_plugin::" . esc_html( $method ), 'Method does not exist.', '0.1' );
         unset( $method, $args );
         return null;
     }
@@ -253,8 +306,8 @@ class Disciple_Tools_Plugin_Starter_Template {
 
 
 // Register activation hook.
-register_activation_hook( __FILE__, [ 'Disciple_Tools_Plugin_Starter_Template', 'activation' ] );
-register_deactivation_hook( __FILE__, [ 'Disciple_Tools_Plugin_Starter_Template', 'deactivation' ] );
+register_activation_hook( __FILE__, [ 'Disciple_Tools_Last_Comment_Plugin', 'activation' ] );
+register_deactivation_hook( __FILE__, [ 'Disciple_Tools_Last_Comment_Plugin', 'deactivation' ] );
 
 
 if ( ! function_exists( 'disciple_tools_plugin_starter_template_hook_admin_notice' ) ) {
@@ -267,18 +320,18 @@ if ( ! function_exists( 'disciple_tools_plugin_starter_template_hook_admin_notic
             $message .= ' ' . sprintf( esc_html( 'Current Disciple.Tools version: %1$s, required version: %2$s' ), esc_html( $current_version ), esc_html( $disciple_tools_plugin_starter_template_required_dt_theme_version ) );
         }
         // Check if it's been dismissed...
-        if ( ! get_option( 'dismissed-disciple-tools-plugin-starter-template', false ) ) { ?>
-            <div class="notice notice-error notice-disciple-tools-plugin-starter-template is-dismissible" data-notice="disciple-tools-plugin-starter-template">
+        if ( ! get_option( 'dismissed-disciple-tools-last-comment-plugin', false ) ) { ?>
+            <div class="notice notice-error notice-disciple-tools-last-comment-plugin is-dismissible" data-notice="disciple-tools-last-comment-plugin">
                 <p><?php echo esc_html( $message );?></p>
             </div>
             <script>
                 jQuery(function($) {
-                    $( document ).on( 'click', '.notice-disciple-tools-plugin-starter-template .notice-dismiss', function () {
+                    $( document ).on( 'click', '.notice-disciple-tools-last-comment-plugin .notice-dismiss', function () {
                         $.ajax( ajaxurl, {
                             type: 'POST',
                             data: {
                                 action: 'dismissed_notice_handler',
-                                type: 'disciple-tools-plugin-starter-template',
+                                type: 'disciple-tools-last-comment-plugin',
                                 security: '<?php echo esc_html( wp_create_nonce( 'wp_rest_dismiss' ) ) ?>'
                             }
                         })

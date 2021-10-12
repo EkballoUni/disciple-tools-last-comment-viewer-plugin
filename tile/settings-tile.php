@@ -62,7 +62,80 @@ class Disciple_Tools_Plugin_Starter_Template_Settings_Tile
             <hr/>
 
             <!-- replace with your custom content -->
-            <p>Replace with your custom content</p>
+            <p>Replace with your custom content aa</p>
+
+            <div style="margin-bottom: 20px; background: #eee; padding: 10px;">
+                <h3>Workflow</h3>
+                <ul>
+                    <li>generate field when activation</li>
+                    <li>delete field when deactivation</li>
+                    <li>get last comment</li>
+                    <li>and somehow hook to field and get last comment data</li>
+                </ul>
+            </div>
+
+                <div style="max-height: 500px; overflow-y: auto">
+
+                <?php
+                    global $wp_post_types;
+                    $field_key = dt_create_field_key( 'last_comment' );
+                    $contact_fields = DT_Posts::get_post_field_settings( 'contact', false, true );
+                    $group_fields = DT_Posts::get_post_field_settings( 'group', false, true );
+                    $last_comment_field = [
+                        'name' => 'last_comment',
+                        'type' => 'text',
+                        'default' => '',
+                        'tile' => '',
+                        'customizable' => 'all',
+                        'private' => false
+                    ];
+
+                    foreach (DT_Posts::get_post_types() as $post_type) {
+                ?>
+                <div style="margin-bottom: 20px; background: #eee; padding: 10px;">
+                    <?php print_r($post_type) ?>
+                    <?php print_r($last_comment_field) ?>
+
+                    <hr>
+                    <h4>Contact Post Fields</h4>
+
+                    
+                    <?php
+                        print_r($contact_fields['name']);
+                        ?>
+
+                        <hr>
+
+                        <?php
+                        foreach ($contact_fields as $key => $value) {
+                            print_r($key);
+                            ?>
+                            <br>
+                            <?php
+                            print_r($value);
+                            ?>
+                            <br>
+                            <br>
+                            <?php
+                        }
+                     ?>
+
+                    <hr>
+                    <h4>Group Post Fields</h4>
+                    <?php print_r($group_fields); ?>
+
+                </div>
+                
+                <?php
+                    }
+                ?>
+                </div>
+            <script>
+                var x = "<?php echo get_post_types() ?>";
+                console.group('v : post types');
+                console.log(x);
+                console.groupEnd();
+            </script>
 
         </div>
         <?php

@@ -4,9 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
 /**
  * Class Disciple_Tools_Plugin_Starter_Template_Menu
  */
-class Disciple_Tools_Plugin_Starter_Template_Menu {
+class Disciple_Tools_Last_Comment_Plugin_Menu {
 
-    public $token = 'disciple_tools_plugin_starter_template';
+    public $token = 'disciple_tools_last_comment_plugin';
     public $page_title = 'Plugin Starter Template';
 
     private static $_instance = null;
