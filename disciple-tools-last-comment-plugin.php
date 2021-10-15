@@ -67,9 +67,9 @@ function disciple_tools_last_comment_plugin() {
 add_action( 'after_setup_theme', 'disciple_tools_last_comment_plugin', 20 );
 
 function last_comment_field_filter($data, $post_type) {
-    foreach($data["posts"] as &$post) {
+    foreach( $data["posts"] as &$post ) {
         $args = array(
-            'post_id' => $post->ID,
+            'post_id' => $post['ID'],
             'orderby' => array('comment_date'),
             'order' => 'DESC',
             'number' => 1
@@ -78,7 +78,7 @@ function last_comment_field_filter($data, $post_type) {
 
         $post['last_comment'] = $comment[0]->comment_content;
     }
-    unset($post);
+    unset( $post );
 
     return $data;
 }
