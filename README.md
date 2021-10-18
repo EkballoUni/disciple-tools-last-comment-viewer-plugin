@@ -1,41 +1,23 @@
 [![Build Status](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template.svg?branch=master)](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template)
 
-## Dev notes, delete me:
-This is a starter plugin to jumstart your work with Disciple.Tools.
-Click the "Use this template" button above.
-See instructions for refactoring and getting started in the [wiki](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/wiki)
-See instruction for creating releases and publishing your plugin: [wiki](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/wiki)
-In order to display the banner correctly on the Disciple.Tools Community Plugins Site, don't change the 'Plugin Banner' text on line 12; only the URL.
-
 ## readme format:
 
-![Plugin Banner](https://raw.githubusercontent.com/DiscipleTools/disciple-tools-plugin-starter-template/master/documentation/banner.png)
+![Plugin Banner](https://raw.githubusercontent.com/DiscipleTools/viktorsheep/last-comment/master/documentation/banner.png)
 
-# Disciple.Tools - Name
+# Disciple.Tools - Last Comment Viewer
 
-Description Description Description Description Description Description Description
-Description Description Description Description Description Description Description
+Simple plugin that enables the user to view the last comments of contacts or groups.
 
 ## Purpose
 
-Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
-Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
-
-Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
-Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
+This plugin enables the user to view the last comments of either or contacts or groups at a glance.
 
 ## Usage
 
 #### Will Do
 
-- Item
-- Item
-- Item
-
-#### Will Not Do
-
-- Item
-- Item
+- Automatically creates `Last Comment` custom field upon installation.
+- Shows the last comments of each Contact and Group in the list.
 
 ## Requirements
 
