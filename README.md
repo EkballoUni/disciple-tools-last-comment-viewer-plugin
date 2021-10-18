@@ -1,8 +1,6 @@
 [![Build Status](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template.svg?branch=master)](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template)
 
-## readme format:
-
-![Plugin Banner](https://raw.githubusercontent.com/DiscipleTools/viktorsheep/last-comment/master/documentation/banner.png)
+![Plugin Banner](documentation/banner.png)
 
 # Disciple.Tools - Last Comment Viewer
 
@@ -36,8 +34,3 @@ in the [Discussions](https://github.com/DiscipleTools/disciple-tools-plugin-star
 code contributions are welcome using the [Pull Request](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/pulls)
 system for git. For a more details on contribution see the
 [contribution guidelines](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/blob/master/CONTRIBUTING.md).
-
-
-## Screenshots
-
-![screenshot](documentation/community/starter-banners/banner-blue-green.png)
