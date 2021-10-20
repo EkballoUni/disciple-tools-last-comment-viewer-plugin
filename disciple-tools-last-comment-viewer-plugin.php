@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return object|bool
  */
 function disciple_tools_last_comment_viewer_plugin() {
-    $disciple_tools_last_comment_viewer_plugin = '1.1.0';
+    $disciple_tools_last_comment_viewer_plugin = '1.1.2';
     $wp_theme = wp_get_theme();
     $version = $wp_theme->version;
 
@@ -68,14 +68,15 @@ add_action( 'after_setup_theme', 'disciple_tools_last_comment_viewer_plugin', 20
 
 function last_comment_field_filter($data, $post_type) {
     global $wpdb;
+    $post_IDs = implode( ",", array_map( function( $val ) { return $val["ID"]; }, $data["posts"] ) );
 
-    foreach( $data["posts"] as &$post ) {
-        $sql = "SELECT * FROM wp_comments where comment_post_ID = " . $post['ID'] . " ORDER BY comment_date DESC LIMIT 1";
-        $comment = $wpdb->get_results($sql);
+    $sql = "SELECT * FROM wp_comments WHERE comment_ID IN (SELECT MAX(comment_ID) FROM wp_comments GROUP BY comment_post_ID) AND comment_post_ID IN (" . $post_IDs . ")";
+    $comments = $wpdb->get_results($sql);
 
-        $post['last_comment'] = $comment[0]->comment_content . " : " . $comment[0]->comment_date;
-    }
-    unset( $post );
+    array_walk( $data["posts"], function(&$key) use ($comments) {
+        $comment =  $comments[array_search($key["ID"], array_column($comments, 'comment_post_ID'))];
+        $key["last_comment"] = $comment->comment_content . ' : ' . $comment->comment_date . ' By : ' . $comment->comment_author;
+    });
 
     return $data;
 }
