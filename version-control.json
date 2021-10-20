@@ -1,0 +1,30 @@
+{
+  "name": "Disciple.Tools - Last Comment Viewer Plugin",
+  "version": "1.0.1",
+  "last_updated": "2021-10-20",
+  "author": "Disciple.Tools",
+  "author_homepage": "https://disciple.tools",
+  "git_owner": "viktorsheep",
+  "git_repo": "disciple-tools-last-comment-viewer-plugin",
+  "download_url": "https://github.com/viktorsheep/disciple-tools-last-comment-viewer-plugin/releases/latest/download/disciple-tools-last-comment-viewer-plugin.zip",
+  "homepage": "https://github.com/viktorsheep/disciple-tools-last-comment-viewer-plugin",
+  "issues_url": "https://github.com/viktorsheep/disciple-tools-last-comment-viewer-plugin/issues",
+  "projects_url": "https://github.com/viktorsheep/disciple-tools-last-comment-viewer-plugin/projects/1",
+  "discussions_url": "https://github.com/viktorsheep/disciple-tools-last-comment-viewer-plugin/discussions",
+  "wiki_url": "https://github.com/viktorsheep/disciple-tools-last-comment-viewer-plugin/wiki",
+  "license_url": "https://raw.githubusercontent.com/viktorsheep/disciple-tools-last-comment-viewer-plugin/master/LICENSE",
+  "readme_url": "https://raw.githubusercontent.com/viktorsheep/disciple-tools-last-comment-viewer-plugin/master/README.md",
+  "requires": "4.7",
+  "tested": "5.7",
+  "upgrade_notice": "Upgrade to get the latest features.",
+  "banners": {
+    "low": "https://raw.githubusercontent.com/viktorsheep/disciple-tools-last-comment-viewer-plugin/master/documentation/banner.png",
+    "high": "https://raw.githubusercontent.com/viktorsheep/disciple-tools-last-comment-viewer-plugin/master/documentation/banner.png"
+  },
+  "icon": "https://raw.githubusercontent.com/viktorsheep/disciple-tools-last-comment-viewer-plugin/master/documentation/icon.png",
+  "sections": {
+    "description": "Kick start your Disciple.Tools plugin project with this template! This plugin is a collection of our best practices and code bases for creating Disciple.Tools plugins. ",
+    "installation": "(Required) You must have Disciple.Tools Theme installed before using this plugin. Once Disciple.Tools is installed, you can use the normal Plugin system to install the plugin.",
+    "changelog": ""
+  }
+}
