@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return object|bool
  */
 function disciple_tools_last_comment_viewer_plugin() {
-    $disciple_tools_last_comment_viewer_plugin = '1.0.1';
+    $disciple_tools_last_comment_viewer_plugin = '1.1.0';
     $wp_theme = wp_get_theme();
     $version = $wp_theme->version;
 
@@ -73,7 +73,7 @@ function last_comment_field_filter($data, $post_type) {
         $sql = "SELECT * FROM wp_comments where comment_post_ID = " . $post['ID'] . " ORDER BY comment_date DESC LIMIT 1";
         $comment = $wpdb->get_results($sql);
 
-        $post['last_comment'] = $comment[0]->comment_content;
+        $post['last_comment'] = $comment[0]->comment_content . " : " . $comment[0]->comment_date;
     }
     unset( $post );
 
