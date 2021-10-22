@@ -5,7 +5,7 @@
  * Description: Disciple.Tools - Last comment is a simple plugin to let the user view the contacts' and groups' last comments.
  * Text Domain: disciple-tools-last-comment-viewer-plugin
  * Domain Path: /languages
- * Version:  0.1
+ * Version:  1.1.3
  * Author URI: https://github.com/viktorsheep
  * GitHub Plugin URI: https://github.com/viktorsheep/disciple-tools-last-comment-viewer-plugin
  * Requires at least: 4.7.0
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return object|bool
  */
 function disciple_tools_last_comment_viewer_plugin() {
-    $disciple_tools_last_comment_viewer_plugin = '1.1.2';
+    $disciple_tools_last_comment_viewer_plugin = '1.1.3';
     $wp_theme = wp_get_theme();
     $version = $wp_theme->version;
 
@@ -75,7 +75,7 @@ function last_comment_field_filter($data, $post_type) {
 
     array_walk( $data["posts"], function(&$key) use ($comments) {
         $comment =  $comments[array_search($key["ID"], array_column($comments, 'comment_post_ID'))];
-        $key["last_comment"] = $comment->comment_content . ' : ' . $comment->comment_date . ' By : ' . $comment->comment_author;
+        $key["last_comment"] = $comment->comment_post_ID !== $key["ID"] ? "" : $comment->comment_content . ' : ' . $comment->comment_date . ' By : ' . $comment->comment_author;
     });
 
     return $data;
