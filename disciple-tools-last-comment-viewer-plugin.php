@@ -70,7 +70,7 @@ function last_comment_field_filter($data, $post_type) {
     global $wpdb;
     $post_IDs = implode( ",", array_map( function( $val ) { return $val["ID"]; }, $data["posts"] ) );
 
-    $sql = "SELECT * FROM wp_comments WHERE comment_ID IN (SELECT MAX(comment_ID) FROM wp_comments GROUP BY comment_post_ID) AND comment_post_ID IN (" . $post_IDs . ")";
+    $sql = "SELECT * FROM " . $wpdb->comments . " WHERE comment_ID IN (SELECT MAX(comment_ID) FROM wp_comments GROUP BY comment_post_ID) AND comment_post_ID IN (" . $post_IDs . ")";
     $comments = $wpdb->get_results($sql);
 
     array_walk( $data["posts"], function(&$key) use ($comments) {
