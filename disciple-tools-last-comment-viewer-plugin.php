@@ -5,7 +5,7 @@
  * Description: Disciple.Tools - Last comment is a simple plugin to let the user view the contacts' and groups' last comments.
  * Text Domain: disciple-tools-last-comment-viewer-plugin
  * Domain Path: /languages
- * Version:  1.1.3
+ * Version:  1.1.4
  * Author URI: https://github.com/viktorsheep
  * GitHub Plugin URI: https://github.com/viktorsheep/disciple-tools-last-comment-viewer-plugin
  * Requires at least: 4.7.0
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return object|bool
  */
 function disciple_tools_last_comment_viewer_plugin() {
-    $disciple_tools_last_comment_viewer_plugin = '1.1.3';
+    $disciple_tools_last_comment_viewer_plugin = '1.1.4';
     $wp_theme = wp_get_theme();
     $version = $wp_theme->version;
 
