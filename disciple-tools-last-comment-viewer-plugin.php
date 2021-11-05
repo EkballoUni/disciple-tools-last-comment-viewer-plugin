@@ -66,21 +66,26 @@ function disciple_tools_last_comment_viewer_plugin() {
 }
 add_action( 'after_setup_theme', 'disciple_tools_last_comment_viewer_plugin', 20 );
 
-function last_comment_field_filter($data, $post_type) {
+function last_comment_field_filter( $data, $post_type) {
     global $wpdb;
-    $post_IDs = implode( ",", array_map( function( $val ) { return $val["ID"]; }, $data["posts"] ) );
+    $post_ids = implode( ",", array_map( function( $val ) { return $val["ID"];
+    }, $data["posts"] ) );
 
-    $sql = "SELECT * FROM $wpdb->comments WHERE comment_ID IN (SELECT MAX(comment_ID) FROM $wpdb->comments GROUP BY comment_post_ID) AND comment_post_ID IN (" . $post_IDs . ")";
-    $comments = $wpdb->get_results($sql);
+    $comments = $wpdb->get_results(
+        $wpdb->prepare(
+            "SELECT * FROM $wpdb->comments WHERE comment_ID IN (SELECT MAX(comment_ID) FROM $wpdb->comments GROUP BY comment_post_ID) AND comment_post_ID IN (%s)",
+            $post_ids
+        )
+    );
 
-    array_walk( $data["posts"], function(&$key) use ($comments) {
-        $comment =  $comments[array_search($key["ID"], array_column($comments, 'comment_post_ID'))];
+    array_walk( $data["posts"], function( &$key) use ( $comments) {
+        $comment = $comments[array_search( $key["ID"], array_column( $comments, 'comment_post_ID' ) )];
         $key["last_comment"] = $comment->comment_post_ID !== $key["ID"] ? "" : $comment->comment_content . ' : ' . $comment->comment_date . ' By : ' . $comment->comment_author;
     });
 
     return $data;
 }
-add_filter( "dt_list_posts_custom_fields", "last_comment_field_filter", 10, 2);
+add_filter( "dt_list_posts_custom_fields", "last_comment_field_filter", 10, 2 );
 
 
 /**
@@ -265,20 +270,20 @@ if ( ! function_exists( "dt_hook_ajax_notice_handler" )){
  * @see https://github.com/DiscipleTools/disciple-tools-version-control/wiki/How-to-Update-the-Starter-Plugin
  */
 add_action( 'plugins_loaded', function (){
-   if ( is_admin() ){
-       // Check for plugin updates
-       if ( ! class_exists( 'Puc_v4_Factory' ) ) {
-           if ( file_exists( get_template_directory() . '/dt-core/libraries/plugin-update-checker/plugin-update-checker.php' )){
-               require( get_template_directory() . '/dt-core/libraries/plugin-update-checker/plugin-update-checker.php' );
-           }
-       }
-       if ( class_exists( 'Puc_v4_Factory' ) ){
-           Puc_v4_Factory::buildUpdateChecker(
-               'https://raw.githubusercontent.com/viktorsheep/disciple-tools-last-comment-viewer-plugin/master/version-control.json',
-               __FILE__,
-               'disciple-tools-last-comment-viewer-plugin'
-           );
+    if ( is_admin() ){
+        // Check for plugin updates
+        if ( ! class_exists( 'Puc_v4_Factory' ) ) {
+            if ( file_exists( get_template_directory() . '/dt-core/libraries/plugin-update-checker/plugin-update-checker.php' )){
+                require( get_template_directory() . '/dt-core/libraries/plugin-update-checker/plugin-update-checker.php' );
+            }
+        }
+        if ( class_exists( 'Puc_v4_Factory' ) ){
+            Puc_v4_Factory::buildUpdateChecker(
+                'https://raw.githubusercontent.com/viktorsheep/disciple-tools-last-comment-viewer-plugin/master/version-control.json',
+                __FILE__,
+                'disciple-tools-last-comment-viewer-plugin'
+            );
 
-       }
-   }
+        }
+    }
 } );
