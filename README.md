@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template.svg?branch=master)](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template)
-
-![Plugin Banner](documentation/banner.png)
+![Plugin Banner](https://raw.githubusercontent.com/EkballoUni/disciple-tools-last-comment-viewer-plugin/master/documentation/banner.png)
 
 # Disciple.Tools - Last Comment Viewer
 
