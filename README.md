@@ -1,4 +1,4 @@
-![Plugin Banner](https://raw.githubusercontent.com/EkballoUni/disciple-tools-last-comment-viewer-plugin/master/documentation/banner.png)
+![Plugin Banner](https://raw.githubusercontent.com/viktorsheep/disciple-tools-last-comment-viewer-plugin/master/documentation/banner.png)
 
 # Disciple.Tools - Last Comment Viewer
 
