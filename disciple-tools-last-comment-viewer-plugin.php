@@ -6,7 +6,7 @@
  * Description: Disciple.Tools - Last comment is a simple plugin to let the user view the contacts' and groups' last comments.
  * Text Domain: disciple-tools-last-comment-viewer-plugin
  * Domain Path: /languages
- * Version:  1.1.4
+ * Version:  1.1.5
  * Author URI: https://github.com/viktorsheep
  * GitHub Plugin URI: https://github.com/viktorsheep/disciple-tools-last-comment-viewer-plugin
  * Requires at least: 4.7.0
